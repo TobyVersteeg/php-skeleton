@@ -13,7 +13,12 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" defer></script>
 </head>
 <body>
+    <?php require 'config.php'; ?>
+
     <main>
+        <?php require 'views/header.php'; ?>
     </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
