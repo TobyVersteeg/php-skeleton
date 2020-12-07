@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Controllers;
+function index()
+{
 
-class UserController extends Controller {
+}
+
+function store(array $data)
+{
 
 }
 
