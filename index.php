@@ -19,8 +19,6 @@
         <?php require 'views/header.php'; ?>
     </main>
 
-    <?php require('app/controllers/UserController.php') ?>
-
     <script src="js/main.js"></script>
 </body>
 </html>
