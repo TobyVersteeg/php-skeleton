@@ -1,11 +1,11 @@
 <?php
 
-function index()
+function usersIndex()
 {
-
+    $users = mysqlQuery("SELECT * FROM users");
 }
 
-function store(array $data)
+function usersStore(array $data)
 {
     
 }

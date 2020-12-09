@@ -17,6 +17,8 @@
 
     <main>
         <?php require 'views/header.php'; ?>
+        <?php require 'views/content.php'; ?>
+        <?php require 'views/footer.php'; ?>
     </main>
 
     <script src="js/main.js"></script>

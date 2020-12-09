@@ -4,3 +4,9 @@ body {
     font-size: 1em;
     font-weight: 200;
 }
+
+header {
+    height: 120px;
+    background-color: black;
+    width: 100%;
+}

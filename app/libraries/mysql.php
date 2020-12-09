@@ -33,19 +33,81 @@ function mysqlConnect($dbHost = null, $dbName = null, $dbUser = null, $dbPass = 
 /**
  * Execture a PDO query
  * @param $query (required), the query to execute
- * @param $dbHost, a host like 'localhost'
- * @param $dbName, the name of the database you wish to connect to
- * @param $dbUser, the username to connect with the database
- * @param $dbPass, the password to connect with the database
+ * @param $dbHost: a host like 'localhost'
+ * @param $dbName: the name of the database you wish to connect to
+ * @param $dbUser: the username to connect with the database
+ * @param $dbPass: the password to connect with the database
+ * @return $stmt object: result from PDO 
  */
-function mysqlQuery($query, $dbHost = null, $dbName = null, $dbUser = null, $dbPass = null)
+function mysqlQuery($query, $executeString = null, $dbHost = null, $dbName = null, $dbUser = null, $dbPass = null)
 {
     $dbh = mysqlConnect($dbHost = null, $dbName = null, $dbUser = null, $dbPass = null);
 
     $stmt = $dbh->prepare($query);
-    $stmt->execute();
+    $stmt->execute($executeString);
 
     return $stmt;
+}
+
+/**
+ * Insert data into the database
+ * @param $data array: a associative array with columns and values
+ * @param $table string: the table to insert into
+ */
+function mysqlInsert($data, $table)
+{
+    $values = array();
+    $questionMarks = "";
+    $fields = "";
+    $index = 0;
+
+    $query = "INSERT INTO " . $table . "(";
+
+    foreach ($data as $col => $val)
+    {
+        $fields .= $col . ",";
+        array_push($values, $val);
+        
+        $questionMarks .= "?,";
+        $index++;
+    }
+
+    $fields = rtrim($fields, ',');
+    $questionMarks = rtrim($questionMarks, ',');
+
+    $query .= $fields . ") VALUES (" . $questionMarks . ")";
+
+    mysqlQuery($query, $values);
+}
+
+/**
+ * Create an update query to update a record in the database
+ * @param $data array: associative array with columns and values
+ * @param $table string: the table to update
+ * @param $id int: the id of the record to update
+ */
+function mysqlUpdate($data, $table, $id)
+{
+    $setStr = "";
+    $params = array();
+
+    foreach ($data as $col => $val)
+    {
+        if (trim(strtolower($col)) === 'id')
+        {
+            continue;
+        }
+        
+        $setStr .= "`$col` = :$col,";
+        $params[$col] = $val;
+    }
+
+    $setStr = rtrim($setStr, ",");
+
+    $params['id'] = $id;
+    $query = "UPDATE $table SET $setStr WHERE id = :id";
+    
+    mysqlQuery($query, $params);
 }
 
 ?>
