@@ -76,6 +76,7 @@ function mysqlInsert($data, $table)
     $questionMarks = rtrim($questionMarks, ',');
 
     $query .= $fields . ") VALUES (" . $questionMarks . ")";
+    // dd($query);
 
     mysqlQuery($query, $values);
 }
