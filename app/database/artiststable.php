@@ -57,8 +57,6 @@ $seeder = [
     ]
 ];
 
-// INSERT INTO artists(first_name,last_name,country,birthday,created,created_by) VALUES ('Joe','Satriani','1956-07-15',?,?,?)
-
 foreach ($seeder as $seed)
 {
     mysqlInsert($seed, 'artists');

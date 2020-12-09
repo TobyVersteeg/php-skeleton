@@ -19,7 +19,8 @@ $query = "CREATE TABLE IF NOT EXISTS `users` (
     `role`int(11) NOT NULL,
     `country` int(11),
     `city` varchar(255),
-    `created` timestamp DEFAULT CURRENT_TIMESTAMP,
+    `birthday` date,
+    `created` timestamp,
     `updated` timestamp DEFAULT CURRENT_TIMESTAMP,
     `deleted` timestamp,
     `created_by` int(11) NOT NULL,
@@ -29,5 +30,20 @@ $query = "CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;";
 
 mysqlQuery($query);
+
+$user = [
+    'first_name' => 'Toby',
+    'last_name'  => 'Versteeg',
+    'email'      => 'toby@codegorilla.nl',
+    'password'   => 'password',
+    'role'       => 1,
+    'country'    => 156,
+    'city'       => 'Groningen',
+    'birthday'   => '1970-05-17',
+    'created'    => date('Y-m-d H:i:s'),
+    'created_by' => 1
+];
+
+mysqlInsert($user, 'users');
 
 ?>

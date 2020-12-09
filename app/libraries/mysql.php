@@ -43,8 +43,12 @@ function mysqlQuery($query, $executeString = null, $dbHost = null, $dbName = nul
 {
     $dbh = mysqlConnect($dbHost = null, $dbName = null, $dbUser = null, $dbPass = null);
 
-    $stmt = $dbh->prepare($query);
-    $stmt->execute($executeString);
+    try {
+        $stmt = $dbh->prepare($query);
+        $stmt->execute($executeString);
+    } catch (PDOException $e) {
+        var_dump($e->getMessage());
+    }
 
     return $stmt;
 }
@@ -76,8 +80,8 @@ function mysqlInsert($data, $table)
     $questionMarks = rtrim($questionMarks, ',');
 
     $query .= $fields . ") VALUES (" . $questionMarks . ")";
-    // dd($query);
-
+    // var_dump($query);exit;
+    
     mysqlQuery($query, $values);
 }
 
@@ -109,6 +113,11 @@ function mysqlUpdate($data, $table, $id)
     $query = "UPDATE $table SET $setStr WHERE id = :id";
     
     mysqlQuery($query, $params);
+}
+
+function mysqlDelete($data)
+{
+
 }
 
 ?>

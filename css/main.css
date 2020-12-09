@@ -10,3 +10,21 @@ header {
     background-color: black;
     width: 100%;
 }
+
+.center-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.register-form {
+    width: 50%;
+    background-color: lightgrey;
+    padding: 30px;
+}
+
+#register-message {
+    display: none;
+}
