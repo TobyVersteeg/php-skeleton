@@ -14,17 +14,12 @@
     <script src="js/bootstrap-bundle4_5_3.min.js"></script>
 </head>
 <body>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
     <?php require __DIR__ . '/app/helpers/requires.php'; ?>
-    <?php 
-        // require __DIR__ . '/app/database/migrate.php';
-        // migrateDatabase(true);
-    ?>
-
-    <?php require 'views/register.php'; ?>
-
     <main>
         <?php require 'views/header.php'; ?>
-        <?php require 'views/content.php'; ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . '/page.php'; ?>
+        <?php require getPage(); ?>
         <?php require 'views/footer.php'; ?>
     </main>
 
