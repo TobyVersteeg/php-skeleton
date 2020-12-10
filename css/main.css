@@ -28,3 +28,9 @@ header {
 #register-message {
     display: none;
 }
+
+footer {
+    height: 120px;
+    background-color: lavenderblush;
+    width: 100%;
+}
