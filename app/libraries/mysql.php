@@ -12,12 +12,10 @@
 function mysqlConnect($dbHost = null, $dbName = null, $dbUser = null, $dbPass = null)
 {
     if (empty($dbHost) || empty($dbName) || empty($dbUser) || empty($dbPass)) {
-        require $_SERVER['DOCUMENT_ROOT'] . '/config.php';
-
-        $dbHost = $conf_db_host;
-        $dbName = $conf_db_name;
-        $dbUser = $conf_db_user;
-        $dbPass = $conf_db_pass;
+        $dbHost = conf_db_host;
+        $dbName = conf_db_name;
+        $dbUser = conf_db_user;
+        $dbPass = conf_db_pass;
     }
     
     try {
@@ -43,8 +41,12 @@ function mysqlQuery($query, $executeString = null, $dbHost = null, $dbName = nul
 {
     $dbh = mysqlConnect($dbHost = null, $dbName = null, $dbUser = null, $dbPass = null);
 
-    $stmt = $dbh->prepare($query);
-    $stmt->execute($executeString);
+    try {
+        $stmt = $dbh->prepare($query);
+        $stmt->execute($executeString);
+    } catch (PDOException $e) {
+        var_dump($e->getMessage());
+    }
 
     return $stmt;
 }
@@ -76,7 +78,8 @@ function mysqlInsert($data, $table)
     $questionMarks = rtrim($questionMarks, ',');
 
     $query .= $fields . ") VALUES (" . $questionMarks . ")";
-
+    // var_dump($query);exit;
+    
     mysqlQuery($query, $values);
 }
 
@@ -108,6 +111,11 @@ function mysqlUpdate($data, $table, $id)
     $query = "UPDATE $table SET $setStr WHERE id = :id";
     
     mysqlQuery($query, $params);
+}
+
+function mysqlDelete($data)
+{
+
 }
 
 ?>
