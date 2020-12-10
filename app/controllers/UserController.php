@@ -1,6 +1,7 @@
 <?php
 
 require '../libraries/mysql.php';
+require '../helpers/main-helper.php';
 
 if (isset($_POST) && isset($_POST['token']))
 {
@@ -9,6 +10,8 @@ if (isset($_POST) && isset($_POST['token']))
     {
         unset($_POST['token']);
         userStore();
+    } elseif ($token === 'login') {
+        userLogin();
     }
 }
 
@@ -26,7 +29,7 @@ function userStore()
     {
         echo json_encode([
             'error'   => true,
-            'message' => "This user(name) has already been taken."
+            'message' => "This user(name) has already been taken.",
         ]);
 
         return;
@@ -54,6 +57,16 @@ function userStore()
 
     mysqlInsert($_POST, 'users');
 
+    // $user = [
+    //     'first_name' => $_POST['first_name'],
+    //     'insertion'  => '',
+    //     'last_name'  => $_POST['last_name'],
+    //     'full_name'  => $_POST['first_name'] . ' ' . $_POST['last_name'],
+    //     'id'         => 1
+    // ];
+
+    // $_SESSION['user'] = $user;
+
     echo json_encode([
         'error'   => false,
         'message' => 'Ok :-)'
@@ -63,6 +76,38 @@ function userStore()
 function comparePasswords($pass1, $pass2)
 {
     return $pass1 != $pass2;
+}
+
+function userLogin()
+{
+    $email = trim(strtolower($_POST['email']));
+    $query = "SELECT * FROM `users` WHERE `email`='" . trim($_POST['email']) . "'";
+    $result = mysqlQuery($query)->fetch();
+
+    if (password_verify($_POST['password'], $result['password']) === true)
+    {
+        $user = [
+            'first_name' => $result['first_name'],
+            'insertion'  => '',
+            'last_name'  => $result['last_name'],
+            'full_name'  => $result['first_name'] . ' ' . $result['last_name'],
+            'id'         => $result['id']
+        ];
+
+        $_SESSION['user'] = $user;
+
+        echo json_encode([
+            'error' => false,
+            'message' => 'success'
+        ]);
+        
+        return;
+    }
+
+    echo json_encode([
+        'error' => true,
+        'message' => 'Login failed'
+    ]);
 }
 
 ?>

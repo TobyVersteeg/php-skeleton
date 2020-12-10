@@ -12,6 +12,8 @@
 function mysqlConnect($dbHost = null, $dbName = null, $dbUser = null, $dbPass = null)
 {
     if (empty($dbHost) || empty($dbName) || empty($dbUser) || empty($dbPass)) {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+
         $dbHost = conf_db_host;
         $dbName = conf_db_name;
         $dbUser = conf_db_user;
