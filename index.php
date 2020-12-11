@@ -14,13 +14,13 @@
     <script src="js/bootstrap-bundle4_5_3.min.js"></script>
 </head>
 <body>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
-    <?php require __DIR__ . '/app/helpers/requires.php'; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
+    <?php require_once __DIR__ . '/app/helpers/requires.php'; ?>
+    
     <main>
-        <?php require 'views/header.php'; ?>
-        <?php require $_SERVER['DOCUMENT_ROOT'] . '/page.php'; ?>
-        <?php require getPage(); ?>
-        <?php require 'views/footer.php'; ?>
+        <?php require_once 'page.php'; ?>
+        <?php $page = getPage(); ?>
+        <?php require $page ?>
     </main>
 
     <script src="js/main.js"></script>

@@ -12,14 +12,14 @@ if (stristr(trim(strtolower($_SERVER['SCRIPT_NAME'])), 'page.php') !== false)
 function getPage()
 {
     $scriptName = '';
-    $request  = str_replace("/app/", "", trim($_SERVER['REQUEST_URI']));
+    $request  = trim($_SERVER['REQUEST_URI']);
 
     //split the path by '/'
     $params = explode("/", $request);
 
     //get rid of empty index (check for double or unnessacary slashes)
     $cleans = cleansParams($params);
-            
+    
     //check if there's no or only one index
     //if so: return the homepage 'pages/main/home'
     if (empty($cleans) || (count($cleans) == 1 && strtolower($cleans[0]) == 'home'))
@@ -28,13 +28,6 @@ function getPage()
     }
     else
     {
-        //if no page was found as a param and the first parameter is not 'main'
-        //return 404 'page not found'
-        if (count($cleans) == 1)
-        {
-            $scriptName = setErrorPage('404');
-        }
-
         //still no page?
         if (empty($scriptName))
         {
@@ -43,11 +36,11 @@ function getPage()
             //if not: add the 'pages' map
             if ($cleans[0] == 'controllers')
             {
-                $scriptName = $_SERVER['DOCUMENT_ROOT'] . '/' . cfg_app_path . '/controllers/' . $cleans[1] . '.php';
+                $scriptName = $_SERVER['DOCUMENT_ROOT'] . cfg_app_path . '/controllers/' . $cleans[1] . '.php';
             }
             else
             {
-                $scriptName = $_SERVER['DOCUMENT_ROOT'] . '/' . cfg_app_path . '/pages/' . $cleans[0] . '/' . $cleans[1] . '.php';
+                $scriptName = $_SERVER['DOCUMENT_ROOT'] . cfg_app_path . '/pages/main/' . $cleans[0] . '.php';
             }
         }
     }
@@ -67,7 +60,7 @@ function getPage()
  * Get URL parameter from 'friendly' URL (e.g. /crm/customer/update/id/3)
  *	where /crm/customer is the path and update is the module
     *	URL params in the example is 'id' which has 3 as value
-    *	more paramaters are supported. E.g /id/3/name/john etc.
+    *	more parameters are supported. E.g /id/3/name/john etc.
     * @param $param (string) the parameter to get from URL
     * @return (string) empty when param was not in URL
     *	or, when requested param was empty: return all params
@@ -76,7 +69,7 @@ function getUrlParam($param = null)
 {
     $param = trim(strtolower($param));
     $allParams = array();
-    $request  = str_replace("/app/", "", trim($_SERVER['REQUEST_URI']));
+    $request  = trim($_SERVER['REQUEST_URI']);
 
     //split the path by '/'
     $params = explode("/", $request);
@@ -95,9 +88,9 @@ function getUrlParam($param = null)
         {
             if (trim(strtolower($cleans[$i])) == $param)
             {
-                if ($i + 1 <= count($cleans) - 1)
+                if ($i <= count($cleans) - 1)
                 {
-                    return $cleans[$i + 1];
+                    return $cleans[$i];
                 }
             }
         }
@@ -120,7 +113,7 @@ function getUrlParam($param = null)
 */
 function getCurrentModule()
 {
-    $request  = str_replace("/app/", "", trim($_SERVER['REQUEST_URI']));
+    $request  = trim($_SERVER['REQUEST_URI']);
 
     //split the path by '/'
     $params = explode("/", $request);

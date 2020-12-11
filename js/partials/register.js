@@ -10,7 +10,7 @@ $(document).ready(function() {
                     return false;
                 }
 
-                console.log('Ok :-)')
+                window.location.href = '/register-done'
             } else {
                 $('#register-message').html(result.message).show()
             }
