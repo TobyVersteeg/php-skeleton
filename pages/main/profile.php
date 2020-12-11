@@ -6,8 +6,8 @@
             <h3>My profile</h3>
             <ul>
                 <li><a href="/profile/me">All about me</a></li>
-                <li>My guitar(t)ists </li>
-                <li>Gear I added</li>
+                <li><a href="/profile/my-guitarists">My guitar(t)ists</a></li>
+                <li><a href="/profile/my-gear">Gear I added</a></li>
             </ul>
         </div>
     </aside>
