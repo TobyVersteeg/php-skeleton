@@ -146,8 +146,21 @@ footer {
     list-style-type: none;
     font-size: 1.1em;
     height: 30px;
+    padding-left: 20px;
+    line-height: 30px;
 }
 
 .profile-section li a {
-    display: inline;
+    display: block;
+}
+
+.profile-section li a:hover {
+    text-decoration: none;
+}
+
+.profile-section li:hover {
+    background-color: darkmagenta;
+    opacity: 0.8;
+    border-radius: .3em;
+    cursor: pointer;
 }

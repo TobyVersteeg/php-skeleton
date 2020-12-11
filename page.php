@@ -60,7 +60,7 @@ function getPage()
  * Get URL parameter from 'friendly' URL (e.g. /crm/customer/update/id/3)
  *	where /crm/customer is the path and update is the module
     *	URL params in the example is 'id' which has 3 as value
-    *	more paramaters are supported. E.g /id/3/name/john etc.
+    *	more parameters are supported. E.g /id/3/name/john etc.
     * @param $param (string) the parameter to get from URL
     * @return (string) empty when param was not in URL
     *	or, when requested param was empty: return all params
@@ -88,9 +88,9 @@ function getUrlParam($param = null)
         {
             if (trim(strtolower($cleans[$i])) == $param)
             {
-                if ($i + 1 <= count($cleans) - 1)
+                if ($i <= count($cleans) - 1)
                 {
-                    return $cleans[$i + 1];
+                    return $cleans[$i];
                 }
             }
         }
