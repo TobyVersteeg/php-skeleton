@@ -17,7 +17,6 @@
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
     <?php require_once __DIR__ . '/app/helpers/requires.php'; ?>
     <main>
-        <?php require_once 'views/header.php'; ?>
         <?php require_once 'page.php'; ?>
         <?php require getPage(); ?>
     </main>

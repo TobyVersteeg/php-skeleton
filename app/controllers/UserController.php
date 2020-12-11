@@ -12,6 +12,8 @@ if (isset($_POST) && isset($_POST['token']))
         userStore();
     } elseif ($token === 'login') {
         userLogin();
+    } elseif ($token === 'logout') {
+        logout();
     }
 }
 
@@ -108,6 +110,16 @@ function userLogin()
         'error' => true,
         'message' => 'Login failed'
     ]);
+}
+
+function logOut()
+{
+    session_start();
+
+    if (isset($_SESSION))
+    {
+        unset($_SESSION['user']);
+    }
 }
 
 ?>
