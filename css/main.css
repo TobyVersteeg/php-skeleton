@@ -82,9 +82,18 @@ header .guitar-icon {
     position: absolute;
 }
 
-#register-message,
+#register-message {
+    display: none;
+}
+
 #login-message {
     display: none;
+    text-align: right;
+    background-color: darkmagenta;
+    opacity: 0.7;
+    padding: 7px;
+    border: 1px solid magenta;
+    border-radius: .3em;
 }
 
 footer {
@@ -111,20 +120,34 @@ footer {
     cursor: pointer;
 }
 
-.input-error {
-    background-color: lightsalmon;
+.profile-options {
+    background-color: rgba(21, 19, 19, 0.7);
+    padding: 20px;
+    color: white;
+    border-right: 1px solid rgb(70, 11, 70);
+    width: 100%;
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 1024px) {
     .profile-options {
         width: 250px;
-        background-color: rgba(21, 19, 19, 0.7);
-        padding: 20px;
-        color: white;
-        border-right: 1px solid rgb(70, 11, 70);
         height: 100vh;
     }
     .profile-options-inner {
         margin-top: 50px;
     }
+}
+
+.profile-section ul {
+    padding: 0;
+}
+
+.profile-section li {
+    list-style-type: none;
+    font-size: 1.1em;
+    height: 30px;
+}
+
+.profile-section li a {
+    display: inline;
 }
