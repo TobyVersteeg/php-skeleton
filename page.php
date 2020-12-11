@@ -12,14 +12,14 @@ if (stristr(trim(strtolower($_SERVER['SCRIPT_NAME'])), 'page.php') !== false)
 function getPage()
 {
     $scriptName = '';
-    $request  = str_replace("/app/", "", trim($_SERVER['REQUEST_URI']));
+    $request  = trim($_SERVER['REQUEST_URI']);
 
     //split the path by '/'
     $params = explode("/", $request);
 
     //get rid of empty index (check for double or unnessacary slashes)
     $cleans = cleansParams($params);
-            
+    
     //check if there's no or only one index
     //if so: return the homepage 'pages/main/home'
     if (empty($cleans) || (count($cleans) == 1 && strtolower($cleans[0]) == 'home'))
@@ -28,13 +28,6 @@ function getPage()
     }
     else
     {
-        //if no page was found as a param and the first parameter is not 'main'
-        //return 404 'page not found'
-        if (count($cleans) == 1)
-        {
-            $scriptName = setErrorPage('404');
-        }
-
         //still no page?
         if (empty($scriptName))
         {
@@ -43,11 +36,11 @@ function getPage()
             //if not: add the 'pages' map
             if ($cleans[0] == 'controllers')
             {
-                $scriptName = $_SERVER['DOCUMENT_ROOT'] . '/' . cfg_app_path . '/controllers/' . $cleans[1] . '.php';
+                $scriptName = $_SERVER['DOCUMENT_ROOT'] . cfg_app_path . '/controllers/' . $cleans[1] . '.php';
             }
             else
             {
-                $scriptName = $_SERVER['DOCUMENT_ROOT'] . '/' . cfg_app_path . '/pages/' . $cleans[0] . '/' . $cleans[1] . '.php';
+                $scriptName = $_SERVER['DOCUMENT_ROOT'] . cfg_app_path . '/pages/main/' . $cleans[0] . '.php';
             }
         }
     }
@@ -76,7 +69,7 @@ function getUrlParam($param = null)
 {
     $param = trim(strtolower($param));
     $allParams = array();
-    $request  = str_replace("/app/", "", trim($_SERVER['REQUEST_URI']));
+    $request  = trim($_SERVER['REQUEST_URI']);
 
     //split the path by '/'
     $params = explode("/", $request);
@@ -120,7 +113,7 @@ function getUrlParam($param = null)
 */
 function getCurrentModule()
 {
-    $request  = str_replace("/app/", "", trim($_SERVER['REQUEST_URI']));
+    $request  = trim($_SERVER['REQUEST_URI']);
 
     //split the path by '/'
     $params = explode("/", $request);
