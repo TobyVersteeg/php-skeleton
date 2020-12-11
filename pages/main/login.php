@@ -21,11 +21,16 @@
             <input type="hidden" value="login" name="token" />
 
             <div class="mb-3">
-                <input type="submit" class="btn btn-dark" value="Login" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-dark" value="Login" />
+                    </div>
+                    <div class="col-md-6">
+                        <div id="login-message"></div>
+                    </div>
+                </div>
             </div>
         </form>
-
-        <div id="login-message"></div>
     </div>
 </div>
 
